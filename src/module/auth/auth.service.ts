@@ -31,4 +31,9 @@ export class AuthService {
     ): Promise<UserNoPassword> {
         return this.userService.findOneByLoginAndPassword(login, password)
     }
+
+    loginTokenUser(id: string) {
+        const role = this.userService.returnUserRole(id)
+        return role
+    }
 }

@@ -77,4 +77,12 @@ export class UserService {
     async findUser(user): Promise<User> {
         return await this.userModel.findById(user.id).exec()
     }
+
+    async returnUserRole(id: string): Promise<User> {
+        return await this.userModel
+            .findById(id)
+            .select('-password')
+            .select('-__v')
+            .exec()
+    }
 }

@@ -22,6 +22,7 @@ export class AuthController {
     @UseGuards(JwtAuthGuard)
     @Get()
     auth(@Request() req) {
-        return { user_id: req.user.id, auth: true }
+        const role = this.authService.loginTokenUser(req.user.id)
+        return role
     }
 }
