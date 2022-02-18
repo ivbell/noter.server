@@ -85,4 +85,16 @@ export class UserService {
             .select('-__v')
             .exec()
     }
+
+    async userAdmin(id: string) {
+        const candidate = await this.userModel.findById(id)
+        if (!candidate) {
+            return false
+        }
+        if (candidate.role === 'admin') {
+            return true
+        } else {
+            return false
+        }
+    }
 }
