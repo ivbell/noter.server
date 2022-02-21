@@ -1,12 +1,12 @@
-import { IsHexColor, IsNotEmpty, IsUrl } from 'class-validator'
+import { IsHexColor, IsNotEmpty, IsUrl } from "class-validator";
 
 export class CreateClassDto {
-    @IsNotEmpty()
-    readonly name: string
+  @IsNotEmpty()
+  readonly name: string;
 
-    @IsUrl()
-    readonly icon?: string
+  @IsUrl()
+  readonly icon?: string;
 
-    @IsHexColor()
-    readonly color: string
+  @IsHexColor()
+  readonly color: string;
 }

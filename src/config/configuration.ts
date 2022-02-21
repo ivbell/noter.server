@@ -6,4 +6,4 @@ export default () => ({
     expiresIn: process.env.JWT_EXPIRES_IN,
   },
   mongodb_uri: process.env.MONGODB_URI,
-})
+});

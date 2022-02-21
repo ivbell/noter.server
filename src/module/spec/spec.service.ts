@@ -1,26 +1,38 @@
-import { Injectable } from '@nestjs/common';
-import { CreateSpecDto } from './dto/create-spec.dto';
-import { UpdateSpecDto } from './dto/update-spec.dto';
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { CreateSpecDto } from "./dto/create-spec.dto";
+import { UpdateSpecDto } from "./dto/update-spec.dto";
+import { Spec, SpecDocument } from "./entities/spec.entity";
 
 @Injectable()
 export class SpecService {
-  create(createSpecDto: CreateSpecDto) {
-    return 'This action adds a new spec';
+  constructor(@InjectModel(Spec.name) private specModel: Model<SpecDocument>) {}
+
+  async create(createSpecDto: CreateSpecDto) {
+    await this.specModel.create({ ...createSpecDto });
+    return new HttpException("Spec created", HttpStatus.ACCEPTED);
   }
 
-  findAll() {
-    return `This action returns all spec`;
+  async findAllSpecClass(id: string) {
+    const allSpecByClass = await this.specModel.find({ class_id: id });
+    return allSpecByClass;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} spec`;
+  async update(id: string, updateSpecDto: UpdateSpecDto): Promise<Spec> {
+    const specUpdate = await this.specModel.findByIdAndUpdate(
+      id,
+      { ...updateSpecDto },
+      { new: true }
+    );
+    return specUpdate;
   }
 
-  update(id: number, updateSpecDto: UpdateSpecDto) {
-    return `This action updates a #${id} spec`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} spec`;
+  async remove(id: string) {
+    const deleteSpec = await this.specModel.findByIdAndDelete(id);
+    return new HttpException(
+      `Spec ${deleteSpec.name} deleted`,
+      HttpStatus.ACCEPTED
+    );
   }
 }
