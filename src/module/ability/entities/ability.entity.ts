@@ -15,6 +15,9 @@ export class Ability {
 
   @Prop()
   icon: string
+
+  @Prop({ default: false })
+  deleted: boolean
 }
 
 export const AbilitySchema = SchemaFactory.createForClass(Ability)
