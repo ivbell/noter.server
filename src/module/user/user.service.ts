@@ -51,8 +51,11 @@ export class UserService {
   ): Promise<User | undefined> {
     const user = await this.userModel.findOne({ login: login })
 
-    const validUser = !user && user.deleted
-    if (!validUser) {
+    if (!user) {
+      return null
+    }
+
+    if (user.deleted) {
       return null
     }
 
