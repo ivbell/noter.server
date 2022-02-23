@@ -14,7 +14,7 @@ export class Ability {
   spec_id: string
 
   @Prop()
-  icon: string
+  link_wowhead: string
 
   @Prop({ default: false })
   deleted: boolean
