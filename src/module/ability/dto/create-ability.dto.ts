@@ -6,8 +6,10 @@ export class CreateAbilityDto {
   @IsNotEmpty()
   readonly class_id: string
   @IsNotEmpty()
-  @IsNumber()
+  @IsUrl()
   readonly link_wowhead: string
   @IsUrl()
   readonly icon: string
+  @IsNotEmpty()
+  wowhead_id: string
 }

@@ -1,13 +1,14 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { Document } from 'mongoose'
+import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose'
+import {Document} from 'mongoose'
 
 export type AbilityDocument = Ability & Document
-@Schema({ timestamps: true })
+
+@Schema({timestamps: true})
 export class Ability {
-  @Prop({ required: true })
+  @Prop({required: true})
   name: string
 
-  @Prop({ required: true })
+  @Prop({required: true})
   class_id: string
 
   @Prop()
@@ -16,8 +17,14 @@ export class Ability {
   @Prop()
   link_wowhead: string
 
-  @Prop({ default: false })
+  @Prop({unique: true})
+  wowhead_id: string
+
+  @Prop({default: false})
   deleted: boolean
+
+  @Prop()
+  icon: string
 }
 
 export const AbilitySchema = SchemaFactory.createForClass(Ability)
