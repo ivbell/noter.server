@@ -70,7 +70,8 @@ export class UserService {
   async findById(id: string): Promise<UserDocument> {
     const user = await this.userModel.findById(id)
     const validUser = !user && user.deleted
-    if (!validUser) {
+    console.log(validUser)
+    if (validUser) {
       throw new HttpException('User not found', HttpStatus.BAD_REQUEST)
     }
     return user

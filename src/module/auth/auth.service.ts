@@ -12,10 +12,7 @@ export type UserJWT = {
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly userService: UserService,
-    private jwtService: JwtService
-  ) {}
+  constructor(private readonly userService: UserService, private jwtService: JwtService) {}
 
   login(user: UserDocument) {
     const payload: UserJWT = { id: user._id }
