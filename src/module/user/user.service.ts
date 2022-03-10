@@ -19,10 +19,7 @@ export class UserService {
       })
 
       if (candidate && candidateEmail) {
-        return new HttpException(
-          'Login or email not corrected',
-          HttpStatus.BAD_REQUEST
-        )
+        return new HttpException('Login or email not corrected', HttpStatus.BAD_REQUEST)
       }
 
       const bcryptPassword = await bcrypt.hash(password, 15)
@@ -34,10 +31,7 @@ export class UserService {
 
       return new HttpException(`User ${login} created`, HttpStatus.ACCEPTED)
     } catch (error) {
-      throw new HttpException(
-        'Error registration, try  again',
-        HttpStatus.BAD_REQUEST
-      )
+      throw new HttpException('Error registration, try  again', HttpStatus.BAD_REQUEST)
     }
   }
 
@@ -45,10 +39,7 @@ export class UserService {
     return this.userModel.findById(id).select('-password').exec()
   }
 
-  async findOneByLoginAndPassword(
-    login: string,
-    password: string
-  ): Promise<User | undefined> {
+  async findOneByLoginAndPassword(login: string, password: string): Promise<User | undefined> {
     const user = await this.userModel.findOne({ login: login })
 
     if (!user) {
@@ -70,7 +61,6 @@ export class UserService {
   async findById(id: string): Promise<UserDocument> {
     const user = await this.userModel.findById(id)
     const validUser = !user && user.deleted
-    console.log(validUser)
     if (validUser) {
       throw new HttpException('User not found', HttpStatus.BAD_REQUEST)
     }
@@ -82,11 +72,7 @@ export class UserService {
   }
 
   async returnUserRole(id: string): Promise<User> {
-    return await this.userModel
-      .findById(id)
-      .select('-password')
-      .select('-__v')
-      .exec()
+    return await this.userModel.findById(id).select('-password').select('-__v').exec()
   }
 
   async userAdmin(id: string) {
@@ -106,9 +92,6 @@ export class UserService {
       deleted: true,
     })
 
-    return new HttpException(
-      `User ${candidate.login} deleted`,
-      HttpStatus.ACCEPTED
-    )
+    return new HttpException(`User ${candidate.login} deleted`, HttpStatus.ACCEPTED)
   }
 }
