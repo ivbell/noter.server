@@ -9,7 +9,7 @@ async function bootstrap() {
   const port = configService.get("port");
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
-  await app.listen(port).then(() => {
+  await app.listen(process.env.PORT || port).then(() => {
     console.log(
       `App has been started, PORT:${port}, NODE_ENV: ${process.env.NODE_ENV}`
     );
