@@ -11,7 +11,7 @@ async function bootstrap() {
   app.enableCors();
   await app.listen(process.env.PORT || port).then(() => {
     console.log(
-      `App has been started, PORT:${port}, NODE_ENV: ${process.env.NODE_ENV}`
+      `App has been started, PORT1:${port}, NODE_ENV: ${process.env.NODE_ENV}`
     );
   });
 }
